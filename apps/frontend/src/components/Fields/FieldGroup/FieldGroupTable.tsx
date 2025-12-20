@@ -152,7 +152,7 @@ const FieldGroupTable = ({
                 field.id
             )}`
 
-            let { fieldType } = metadata.subFields[i]
+            let fieldType = metadata.subFields[i].fieldType as FieldType | DisplayFieldType
             if (fieldType === FieldType.RADIO_BUTTON) {
                 fieldType = DisplayFieldType.DROPDOWN
             }
