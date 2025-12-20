@@ -194,11 +194,6 @@ const accessToJSX = (access: AccessLevel, selectedLang: Language) => {
     )
 }
 
-const radioButtonToJSX = (data: string, selectedLang: Language) => {
-    console.log("RADIO DATA", data)
-    return <div>{data}</div>
-}
-
 /**
  * Given signature data, converts it to a standard enum value
  */
@@ -316,6 +311,8 @@ export const fieldToString = (
         case FieldType.STRING:
         case FieldType.NUMBER:
         case FieldType.PHONE:
+        case FieldType.RADIO_BUTTON:
+        case DisplayFieldType.DROPDOWN:
             return fieldData
         case FieldType.DATE:
             return formatDate(new Date(fieldData), selectedLang)
@@ -342,20 +339,18 @@ export const fieldToString = (
  * @returns The JSX
  */
 export const fieldToJSX = (fieldData: any, fieldType: AnyFieldType, selectedLang: Language) => {
-    const stringifiedField = fieldToString(fieldData, fieldType, selectedLang)
-
     switch (fieldType) {
         case FieldType.MULTILINE_STRING:
-            return <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{stringifiedField}</p>
+            return <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{fieldToString(fieldData, fieldType, selectedLang)}</p>
         case FieldType.STRING:
         case FieldType.NUMBER:
         case FieldType.PHONE:
         case FieldType.DATE:
-            return stringifiedField
+        case FieldType.RADIO_BUTTON:
+        case DisplayFieldType.DROPDOWN:
+            return fieldToString(fieldData, fieldType, selectedLang)
         case FieldType.SIGNATURE:
             return signatureToJSX(fieldData)
-        case FieldType.RADIO_BUTTON:
-            return radioButtonToJSX(fieldData, selectedLang)
         case DisplayFieldType.STEP_STATUS:
             return stepStatusToJSX(fieldData, selectedLang)
         case DisplayFieldType.PATIENT_STATUS:
@@ -364,9 +359,8 @@ export const fieldToJSX = (fieldData: any, fieldType: AnyFieldType, selectedLang
             return accessToJSX(fieldData, selectedLang)
         default:
             console.error(`fieldToJSX(): Unrecognized field: ${fieldType}`)
+            return fieldToString(fieldData, fieldType, selectedLang)
     }
-
-    return stringifiedField
 }
 
 export type HasDisplayName<T> = T & { displayName: { [key in Language]: string } }

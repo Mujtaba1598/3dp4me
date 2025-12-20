@@ -194,6 +194,24 @@ const FieldGroupTable = ({
         return cols
     }
 
+    const disabledRowRenderer = <T extends Record<string, any>>(
+        rowData: ColumnMetadata<T>[],
+        itemData: T,
+        lang: Language
+    ) => {
+        const itemDataCopy = {...itemData}
+
+        rowData.forEach((field, i) => {
+            if (field.dataType === FieldType.RADIO_BUTTON) {
+                const fieldMeta = metadata.subFields[i]
+                const selectedOption = fieldMeta.options.find((option) => option._id === itemData[field.id])
+                itemDataCopy[field.id] = (selectedOption?.Question?.[lang] || "" ) as any
+            }
+        })
+
+        return defaultTableRowRenderer(rowData, itemDataCopy, lang)
+    }
+
     return (
         <>
             <h3 key={`${metadata.key}-table-title`}>{metadata.displayName[selectedLang]}</h3>
@@ -202,7 +220,7 @@ const FieldGroupTable = ({
                 headers={tableHeaders}
                 rowData={tableColumnMetadata}
                 renderHeader={defaultTableHeaderRenderer}
-                renderTableRow={isDisabled ? defaultTableRowRenderer : tableRowRenderer}
+                renderTableRow={isDisabled ? disabledRowRenderer : tableRowRenderer}
                 rowStyle={{ height: '50px' }}
                 containerStyle={{
                     marginTop: '6px',

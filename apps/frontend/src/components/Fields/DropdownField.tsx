@@ -24,21 +24,28 @@ const DropdownField = <T extends string>({
     isDisabled = false,
     onChange,
 }: DropdownFieldProps<T>) => {
-    const selectedLang = useTranslations()[1]
+    const [translations, selectedLang] = useTranslations()
 
     const shouldHideOption = (option: FormOption) =>
         option.IsHidden && value?.toString() !== option._id.toString()
 
-    const generateOptions = () =>
-        options.map((option) => {
-            if (shouldHideOption(option)) return null
+    const optionsFields = options.map((option) => {
+        if (shouldHideOption(option)) return null
 
-            return (
-                <option value={option._id} className="create-field-option" disabled={isDisabled} key={option._id} >
-                    {option.Question[selectedLang]}
-                </option>
-            )
-        })
+        return (
+            <option value={option._id} className="create-field-option" disabled={isDisabled} key={option._id} >
+                {option.Question[selectedLang]}
+            </option>
+        )
+    })
+
+    if (value === "") {
+        optionsFields.unshift(
+            <option value="" key="empty">
+                {translations.components.swal.field.selectOption}
+            </option>
+        )
+    }
 
     return (
         <div>
@@ -49,7 +56,7 @@ const DropdownField = <T extends string>({
                 value={value}
                 input={<DropdownInput />}
             >
-                {generateOptions()}
+                {optionsFields}
             </NativeSelect>
         </div>
     )
