@@ -5,6 +5,7 @@ import Divider from '@mui/material/Divider'
 import React from 'react'
 
 import { useTranslations } from '../../hooks/useTranslations'
+import { DisplayFieldType } from '../../utils/constants'
 
 const AudioRecorder = React.lazy(() => import('../AudioRecorder/AudioRecorder'))
 const DateField = React.lazy(() => import('../Fields/DateField'))
@@ -17,9 +18,11 @@ const TextArea = React.lazy(() => import('../Fields/TextArea'))
 const TextField = React.lazy(() => import('../Fields/TextField'))
 const Files = React.lazy(() => import('../Files/Files'))
 const PhoneField = React.lazy(() => import('../Fields/PhoneField'))
+const DropdownField = React.lazy(() => import('../Fields/DropdownField'))
 
 export interface StepFieldProps {
     metadata: Field
+    fieldType?: FieldType | DisplayFieldType
     value: any
     patientId: string
     displayName: string
@@ -34,6 +37,7 @@ export interface StepFieldProps {
 
 const StepField = ({
     metadata,
+    fieldType,
     value,
     patientId = '',
     displayName,
@@ -46,9 +50,10 @@ const StepField = ({
     handleFileDelete = () => {},
 }: StepFieldProps) => {
     const selectedLang = useTranslations()[1]
+    fieldType = fieldType || metadata.fieldType
 
     const generateField = () => {
-        switch (metadata.fieldType) {
+        switch (fieldType) {
             case FieldType.STRING:
                 return (
                     <TextField
@@ -119,6 +124,17 @@ const StepField = ({
             case FieldType.RADIO_BUTTON:
                 return (
                     <RadioButtonField
+                        fieldId={metadata.key}
+                        isDisabled={isDisabled}
+                        title={displayName}
+                        value={value}
+                        options={metadata.options}
+                        onChange={handleSimpleUpdate}
+                    />
+                )
+            case DisplayFieldType.DROPDOWN:
+                return (
+                    <DropdownField
                         fieldId={metadata.key}
                         isDisabled={isDisabled}
                         title={displayName}

@@ -1,6 +1,6 @@
 /* eslint import/no-cycle: "off" */
 // Unfortunately, there has to be an import cycle, because this is by nature, recursive
-import { Language } from '@3dp4me/types'
+import { FieldType, Language } from '@3dp4me/types'
 import AddIcon from '@mui/icons-material/Add'
 import { TableCell } from '@mui/material'
 import { useMemo } from 'react'
@@ -17,6 +17,7 @@ import SimpleTable from '../../SimpleTable/SimpleTable'
 import StepField from '../../StepField/StepField'
 import { FieldGroupListTableProps, getCompleteSubFieldKey, getKeyBase } from './FieldGroupHelpers'
 import { getTableData, getTableHeaders, HasGroupNumber, RENDER_PLUS_ICON } from './TableHelpers'
+import { DisplayFieldType } from '../../../utils/constants'
 
 const CellEditContainer = styled(TableCell)`
     padding: 5px;
@@ -151,10 +152,16 @@ const FieldGroupTable = ({
                 field.id
             )}`
 
+            let fieldType: FieldType | DisplayFieldType = metadata.subFields[i].fieldType
+            if (fieldType === FieldType.RADIO_BUTTON) {
+                fieldType = DisplayFieldType.DROPDOWN
+            }
+
             return (
                 <CellEditContainer key={fieldKey}>
                     <StepField
                         displayName={''} // No display name since the header already has one
+                        fieldType={fieldType}
                         metadata={metadata.subFields[i]}
                         value={itemData[field.id]}
                         key={field.id}

@@ -194,6 +194,11 @@ const accessToJSX = (access: AccessLevel, selectedLang: Language) => {
     )
 }
 
+const radioButtonToJSX = (data: string, selectedLang: Language) => {
+    console.log("RADIO DATA", data)
+    return <div>{data}</div>
+}
+
 /**
  * Given signature data, converts it to a standard enum value
  */
@@ -349,6 +354,8 @@ export const fieldToJSX = (fieldData: any, fieldType: AnyFieldType, selectedLang
             return stringifiedField
         case FieldType.SIGNATURE:
             return signatureToJSX(fieldData)
+        case FieldType.RADIO_BUTTON:
+            return radioButtonToJSX(fieldData, selectedLang)
         case DisplayFieldType.STEP_STATUS:
             return stepStatusToJSX(fieldData, selectedLang)
         case DisplayFieldType.PATIENT_STATUS:
