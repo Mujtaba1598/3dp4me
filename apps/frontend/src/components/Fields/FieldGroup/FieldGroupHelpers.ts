@@ -28,6 +28,7 @@ function canFieldBeDisplayedInTable(metadata: Field) {
         case FieldType.MULTILINE_STRING:
         case FieldType.DATE:
         case FieldType.PHONE:
+        case FieldType.RADIO_BUTTON:
             return true
         default:
             return false
