@@ -53,7 +53,6 @@ const DropdownField = <T extends string>({
         <div>
             <h3>{title}</h3>
             <NativeSelect
-                id="create-field-type-dropdown"
                 onChange={(e) => onChange?.(fieldId, e.target.value)}
                 value={value}
                 input={<DropdownInput />}
