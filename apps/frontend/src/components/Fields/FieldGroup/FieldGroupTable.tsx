@@ -1,6 +1,6 @@
 /* eslint import/no-cycle: "off" */
 // Unfortunately, there has to be an import cycle, because this is by nature, recursive
-import { Language } from '@3dp4me/types'
+import { FieldType, Language } from '@3dp4me/types'
 import AddIcon from '@mui/icons-material/Add'
 import { TableCell } from '@mui/material'
 import { useMemo } from 'react'
@@ -8,6 +8,7 @@ import styled from 'styled-components'
 
 import XIcon from '../../../assets/x-icon.png'
 import { useTranslations } from '../../../hooks/useTranslations'
+import { DisplayFieldType } from '../../../utils/constants'
 import {
     ColumnMetadata,
     defaultTableHeaderRenderer,
@@ -151,10 +152,16 @@ const FieldGroupTable = ({
                 field.id
             )}`
 
+            let fieldType = metadata.subFields[i].fieldType as FieldType | DisplayFieldType
+            if (fieldType === FieldType.RADIO_BUTTON) {
+                fieldType = DisplayFieldType.DROPDOWN
+            }
+
             return (
                 <CellEditContainer key={fieldKey}>
                     <StepField
                         displayName={''} // No display name since the header already has one
+                        fieldType={fieldType}
                         metadata={metadata.subFields[i]}
                         value={itemData[field.id]}
                         key={field.id}
@@ -187,6 +194,26 @@ const FieldGroupTable = ({
         return cols
     }
 
+    const disabledRowRenderer = <T extends Record<string, any>>(
+        rowData: ColumnMetadata<T>[],
+        itemData: T,
+        lang: Language
+    ) => {
+        const itemDataCopy = { ...itemData }
+
+        rowData.forEach((field, i) => {
+            if (field.dataType === FieldType.RADIO_BUTTON) {
+                const fieldMeta = metadata.subFields[i]
+                const selectedOption = fieldMeta.options.find(
+                    (option) => option._id === itemData[field.id]
+                )
+                itemDataCopy[field.id] = (selectedOption?.Question?.[lang] || '') as any
+            }
+        })
+
+        return defaultTableRowRenderer(rowData, itemDataCopy, lang)
+    }
+
     return (
         <>
             <h3 key={`${metadata.key}-table-title`}>{metadata.displayName[selectedLang]}</h3>
@@ -195,7 +222,7 @@ const FieldGroupTable = ({
                 headers={tableHeaders}
                 rowData={tableColumnMetadata}
                 renderHeader={defaultTableHeaderRenderer}
-                renderTableRow={isDisabled ? defaultTableRowRenderer : tableRowRenderer}
+                renderTableRow={isDisabled ? disabledRowRenderer : tableRowRenderer}
                 rowStyle={{ height: '50px' }}
                 containerStyle={{
                     marginTop: '6px',

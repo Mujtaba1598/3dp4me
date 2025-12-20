@@ -201,6 +201,7 @@
           "createFieldTitle": "New Field",
           "editFieldTitle": "Edit Field",
           "fieldSettings": "Field Settings",
+          "selectOption": "Select Option",
           "fieldType": "Field Type",
           "clearance": "Clearance Level",
           "customization": "Customization",
@@ -463,6 +464,7 @@
           "patientTags": "علامات المريض"
         },
         "field": {
+          "selectOption": "اختر خيار",
           "createFieldTitle": "حقل جديد",
           "editFieldTitle": "تعديل الحقل",
           "fieldSettings": "إعدادات الحقل",
