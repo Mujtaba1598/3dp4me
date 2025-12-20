@@ -1,11 +1,8 @@
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Radio from '@mui/material/Radio'
+import { NativeSelect } from '@mui/material'
 
 import { useTranslations } from '../../hooks/useTranslations'
-import { FormOption } from './FormOption'
-import { NativeSelect } from '@mui/material'
 import { DropdownInput } from '../DropdownInput/DropdownInput'
-import { getFieldName } from '../../utils/fields'
+import { FormOption } from './FormOption'
 
 export interface DropdownFieldProps<T extends string> {
     fieldId: T
@@ -33,13 +30,18 @@ const DropdownField = <T extends string>({
         if (shouldHideOption(option)) return null
 
         return (
-            <option value={option._id} className="create-field-option" disabled={isDisabled} key={option._id} >
+            <option
+                value={option._id}
+                className="create-field-option"
+                disabled={isDisabled}
+                key={option._id}
+            >
                 {option.Question[selectedLang]}
             </option>
         )
     })
 
-    if (value === "") {
+    if (value === '') {
         optionsFields.unshift(
             <option value="" key="empty">
                 {translations.components.swal.field.selectOption}

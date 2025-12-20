@@ -8,6 +8,7 @@ import styled from 'styled-components'
 
 import XIcon from '../../../assets/x-icon.png'
 import { useTranslations } from '../../../hooks/useTranslations'
+import { DisplayFieldType } from '../../../utils/constants'
 import {
     ColumnMetadata,
     defaultTableHeaderRenderer,
@@ -17,7 +18,6 @@ import SimpleTable from '../../SimpleTable/SimpleTable'
 import StepField from '../../StepField/StepField'
 import { FieldGroupListTableProps, getCompleteSubFieldKey, getKeyBase } from './FieldGroupHelpers'
 import { getTableData, getTableHeaders, HasGroupNumber, RENDER_PLUS_ICON } from './TableHelpers'
-import { DisplayFieldType } from '../../../utils/constants'
 
 const CellEditContainer = styled(TableCell)`
     padding: 5px;
@@ -152,7 +152,7 @@ const FieldGroupTable = ({
                 field.id
             )}`
 
-            let fieldType: FieldType | DisplayFieldType = metadata.subFields[i].fieldType
+            let { fieldType } = metadata.subFields[i]
             if (fieldType === FieldType.RADIO_BUTTON) {
                 fieldType = DisplayFieldType.DROPDOWN
             }
@@ -199,13 +199,15 @@ const FieldGroupTable = ({
         itemData: T,
         lang: Language
     ) => {
-        const itemDataCopy = {...itemData}
+        const itemDataCopy = { ...itemData }
 
         rowData.forEach((field, i) => {
             if (field.dataType === FieldType.RADIO_BUTTON) {
                 const fieldMeta = metadata.subFields[i]
-                const selectedOption = fieldMeta.options.find((option) => option._id === itemData[field.id])
-                itemDataCopy[field.id] = (selectedOption?.Question?.[lang] || "" ) as any
+                const selectedOption = fieldMeta.options.find(
+                    (option) => option._id === itemData[field.id]
+                )
+                itemDataCopy[field.id] = (selectedOption?.Question?.[lang] || '') as any
             }
         })
 

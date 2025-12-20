@@ -341,7 +341,11 @@ export const fieldToString = (
 export const fieldToJSX = (fieldData: any, fieldType: AnyFieldType, selectedLang: Language) => {
     switch (fieldType) {
         case FieldType.MULTILINE_STRING:
-            return <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{fieldToString(fieldData, fieldType, selectedLang)}</p>
+            return (
+                <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+                    {fieldToString(fieldData, fieldType, selectedLang)}
+                </p>
+            )
         case FieldType.STRING:
         case FieldType.NUMBER:
         case FieldType.PHONE:

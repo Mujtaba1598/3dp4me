@@ -50,10 +50,10 @@ const StepField = ({
     handleFileDelete = () => {},
 }: StepFieldProps) => {
     const selectedLang = useTranslations()[1]
-    fieldType = fieldType || metadata.fieldType
+    const type = fieldType || metadata.fieldType
 
     const generateField = () => {
-        switch (fieldType) {
+        switch (type) {
             case FieldType.STRING:
                 return (
                     <TextField
