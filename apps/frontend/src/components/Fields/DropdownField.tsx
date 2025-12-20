@@ -32,7 +32,6 @@ const DropdownField = <T extends string>({
         return (
             <option
                 value={option._id}
-                className="create-field-option"
                 disabled={isDisabled}
                 key={option._id}
             >
