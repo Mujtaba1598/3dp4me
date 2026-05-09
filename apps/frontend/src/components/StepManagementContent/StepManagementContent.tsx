@@ -60,6 +60,7 @@ const StepManagementContent = ({
 
     const renderBottomSection = (field: Field) => {
         switch (field?.fieldType) {
+            case FieldType.DROPDOWN:
             case FieldType.RADIO_BUTTON:
                 return (
                     <div className="bottom-container">

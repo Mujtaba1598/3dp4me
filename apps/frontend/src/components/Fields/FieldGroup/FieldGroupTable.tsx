@@ -154,7 +154,7 @@ const FieldGroupTable = ({
 
             let fieldType = metadata.subFields[i].fieldType as FieldType | DisplayFieldType
             if (fieldType === FieldType.RADIO_BUTTON) {
-                fieldType = DisplayFieldType.DROPDOWN
+                fieldType = FieldType.DROPDOWN
             }
 
             return (
@@ -202,7 +202,7 @@ const FieldGroupTable = ({
         const itemDataCopy = { ...itemData }
 
         rowData.forEach((field, i) => {
-            if (field.dataType === FieldType.RADIO_BUTTON) {
+            if (field.dataType === FieldType.RADIO_BUTTON || field.dataType === FieldType.DROPDOWN) {
                 const fieldMeta = metadata.subFields[i]
                 const selectedOption = fieldMeta.options.find(
                     (option) => option._id === itemData[field.id]

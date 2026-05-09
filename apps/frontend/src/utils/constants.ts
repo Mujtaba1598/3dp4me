@@ -46,7 +46,6 @@ export enum DisplayFieldType {
     STEP_STATUS = 'StepStatus',
     PATIENT_STATUS = 'PatientStatus',
     ACCESS = 'Access',
-    DROPDOWN = 'Dropdown',
 }
 
 export type AnyFieldType = FieldType | DisplayFieldType
