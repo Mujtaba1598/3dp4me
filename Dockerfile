@@ -1,7 +1,7 @@
 # -----------------------------------------------
 # Base Image with Doppler
 # -----------------------------------------------
-FROM node:22-alpine AS doppler
+FROM node:24-alpine AS doppler
 
 # Install Doppler CLI
 RUN wget -q -t3 'https://packages.doppler.com/public/cli/rsa.8004D9FF50437357.key' -O /etc/apk/keys/cli@doppler-8004D9FF50437357.rsa.pub && \
@@ -57,7 +57,7 @@ RUN apk add --no-cache python3 make g++ autoconf automake libtool nasm
 
 # Install the prod dependencies
 WORKDIR /build
-COPY apps/backend/package.json .
+COPY ./apps/backend/package.json ./
 COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY apps/backend/package.json ./apps/backend/package.json

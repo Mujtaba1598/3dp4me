@@ -11,7 +11,7 @@
     "turbo": "^1.11.3"
   },
   "homepage": "https://github.com/hack4impact-uiuc/3dp4me#readme",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@11.0.9",
   "repository": "hack4impact-uiuc/3dp4me.git",
   "scripts": {
     "build": "turbo build",
