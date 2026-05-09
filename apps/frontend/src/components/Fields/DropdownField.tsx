@@ -30,11 +30,7 @@ const DropdownField = <T extends string>({
         if (shouldHideOption(option)) return null
 
         return (
-            <option
-                value={option._id}
-                disabled={isDisabled}
-                key={option._id}
-            >
+            <option value={option._id} disabled={isDisabled} key={option._id}>
                 {option.Question[selectedLang]}
             </option>
         )

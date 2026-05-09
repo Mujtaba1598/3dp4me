@@ -8,7 +8,6 @@ import styled from 'styled-components'
 
 import XIcon from '../../../assets/x-icon.png'
 import { useTranslations } from '../../../hooks/useTranslations'
-import { DisplayFieldType } from '../../../utils/constants'
 import {
     ColumnMetadata,
     defaultTableHeaderRenderer,
@@ -153,7 +152,7 @@ const FieldGroupTable = ({
             )}`
 
             // Radio buttons don't display well in tables, use dropdown instead
-            let fieldType = metadata.subFields[i].fieldType
+            let { fieldType } = metadata.subFields[i]
             if (fieldType === FieldType.RADIO_BUTTON) {
                 fieldType = FieldType.DROPDOWN
             }
@@ -203,7 +202,10 @@ const FieldGroupTable = ({
         const itemDataCopy = { ...itemData }
 
         rowData.forEach((field, i) => {
-            if (field.dataType === FieldType.RADIO_BUTTON || field.dataType === FieldType.DROPDOWN) {
+            if (
+                field.dataType === FieldType.RADIO_BUTTON ||
+                field.dataType === FieldType.DROPDOWN
+            ) {
                 const fieldMeta = metadata.subFields[i]
                 const selectedOption = fieldMeta.options.find(
                     (option) => option._id === itemData[field.id]
