@@ -152,7 +152,8 @@ const FieldGroupTable = ({
                 field.id
             )}`
 
-            let fieldType = metadata.subFields[i].fieldType as FieldType | DisplayFieldType
+            // Radio buttons don't display well in tables, use dropdown instead
+            let fieldType = metadata.subFields[i].fieldType
             if (fieldType === FieldType.RADIO_BUTTON) {
                 fieldType = FieldType.DROPDOWN
             }
