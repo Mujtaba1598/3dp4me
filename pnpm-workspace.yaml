@@ -1,3 +1,15 @@
 packages:
   - 'apps/**'
   - 'packages/**'
+allowBuilds:
+  '@parcel/watcher': true
+  aws-sdk: true
+  core-js: true
+  core-js-pure: true
+  cwebp-bin: true
+  gifsicle: true
+  mongodb-memory-server: true
+  mozjpeg: true
+  optipng-bin: true
+  pngquant-bin: true
+  sharp: true

@@ -29,6 +29,7 @@ function canFieldBeDisplayedInTable(metadata: Field) {
         case FieldType.DATE:
         case FieldType.PHONE:
         case FieldType.RADIO_BUTTON:
+        case FieldType.DROPDOWN:
             return true
         default:
             return false

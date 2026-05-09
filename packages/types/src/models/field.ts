@@ -10,6 +10,7 @@ export enum FieldType {
     FILE = 'File',
     NUMBER = 'Number',
     DATE = 'Date',
+    DROPDOWN = 'Dropdown',
     PHONE = 'Phone',
     DIVIDER = 'Divider',
     HEADER = 'Header',
@@ -32,6 +33,7 @@ export interface FieldTypeData {
     [FieldType.PHONE]: string
     [FieldType.DIVIDER]: null
     [FieldType.HEADER]: null
+    [FieldType.DROPDOWN]: string
     [FieldType.RADIO_BUTTON]: string
     [FieldType.AUDIO]: File[]
     [FieldType.SIGNATURE]: Signature

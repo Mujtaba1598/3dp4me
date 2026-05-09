@@ -165,6 +165,7 @@ const CreateFieldModal = ({
                         />
                     </div>
                 )
+            case FieldType.DROPDOWN:
             case FieldType.RADIO_BUTTON:
                 return (
                     <div className="create-field-div">

@@ -255,6 +255,8 @@ export const getFieldName = (fieldType: FieldType) => {
             return 'Phone Number'
         case FieldType.PHOTO:
             return 'Photograph'
+        case FieldType.DROPDOWN:
+            return 'Dropdown'
         case FieldType.RADIO_BUTTON:
             return 'Multiple Choice Question'
         case FieldType.SIGNATURE:
@@ -285,6 +287,7 @@ export const canFieldBeAddedToStep = (fieldType: FieldType) => {
         case FieldType.PHONE:
         case FieldType.PHOTO:
         case FieldType.RADIO_BUTTON:
+        case FieldType.DROPDOWN:
         case FieldType.SIGNATURE:
         case FieldType.STRING:
             return true
@@ -312,7 +315,7 @@ export const fieldToString = (
         case FieldType.NUMBER:
         case FieldType.PHONE:
         case FieldType.RADIO_BUTTON:
-        case DisplayFieldType.DROPDOWN:
+        case FieldType.DROPDOWN:
             return fieldData
         case FieldType.DATE:
             return formatDate(new Date(fieldData), selectedLang)
@@ -351,7 +354,7 @@ export const fieldToJSX = (fieldData: any, fieldType: AnyFieldType, selectedLang
         case FieldType.PHONE:
         case FieldType.DATE:
         case FieldType.RADIO_BUTTON:
-        case DisplayFieldType.DROPDOWN:
+        case FieldType.DROPDOWN:
             return fieldToString(fieldData, fieldType, selectedLang)
         case FieldType.SIGNATURE:
             return signatureToJSX(fieldData)
@@ -379,6 +382,10 @@ export const validateField = <T extends Record<string, any> = Record<string, any
 ) => {
     if (fieldData.displayName.EN.trim() === '' || fieldData.displayName.AR.trim() === '') {
         throw new Error(ERR_LANGUAGE_VALIDATION_FAILED)
+    }
+
+    if (fieldData.fieldType === FieldType.DROPDOWN && fieldData.options.length === 0) {
+        throw new Error(ERR_OPTION_VALIDATION_FAILED)
     }
 
     if (fieldData.fieldType === FieldType.RADIO_BUTTON && fieldData.options.length === 0) {

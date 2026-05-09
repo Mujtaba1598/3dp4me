@@ -158,6 +158,7 @@ export const generateFieldSchema = (field: Field): SchemaDefinitionProperty | nu
             return getDateSchema()
         case FieldType.PHONE:
             return getStringSchema()
+        case FieldType.DROPDOWN:
         case FieldType.RADIO_BUTTON:
             return getRadioButtonSchema(field)
         case FieldType.FILE:

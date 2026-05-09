@@ -6,12 +6,13 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "ajv": "^8.17.1",
+    "eslint": "^8.57.1",
     "rimraf": "^5.0.5",
     "syncpack": "^12.3.0",
     "turbo": "^1.11.3"
   },
   "homepage": "https://github.com/hack4impact-uiuc/3dp4me#readme",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@11.0.9",
   "repository": "hack4impact-uiuc/3dp4me.git",
   "scripts": {
     "build": "turbo build",

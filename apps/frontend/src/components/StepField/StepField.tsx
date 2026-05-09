@@ -132,7 +132,7 @@ const StepField = ({
                         onChange={handleSimpleUpdate}
                     />
                 )
-            case DisplayFieldType.DROPDOWN:
+            case FieldType.DROPDOWN:
                 return (
                     <DropdownField
                         fieldId={metadata.key}
