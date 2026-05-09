@@ -52,6 +52,9 @@ RUN pnpm run build:${PROJECT_NAME}
 # -----------------------------------------------
 FROM doppler AS runtime
 
+# Install native build tools needed by sharp, gifsicle, mozjpeg, etc.
+RUN apk add --no-cache python3 make g++ autoconf automake libtool nasm
+
 # Install the prod dependencies
 WORKDIR /build
 COPY apps/backend/package.json .
