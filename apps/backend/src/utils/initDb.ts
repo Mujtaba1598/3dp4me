@@ -9,7 +9,7 @@ import {
     Step,
     StepStatus,
 } from '@3dp4me/types'
-import _ from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import log from 'loglevel'
 import mongoose, { SchemaDefinitionProperty } from 'mongoose'
 import encrypt from 'mongoose-encryption'
@@ -265,5 +265,5 @@ const generateFieldsFromMetadata = (fieldsMetadata: Field[], baseSchema = {}) =>
         }
     })
 
-    return Object.assign(_.cloneDeep(baseSchema), ...generatedSchema)
+    return Object.assign(cloneDeep(baseSchema), ...generatedSchema)
 }
